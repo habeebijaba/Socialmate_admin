@@ -10,6 +10,7 @@ import {
 import { Avatar, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../../state";
+import {Link} from "react-router-dom"
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -25,10 +26,12 @@ function Navbar() {
           <div className="item">
             <DarkModeOutlined className="icon" />
           </div>
+          <Link to = "/notifications">
           <div className="item">
             <NotificationsNoneOutlined className="icon" />
             <div className="counter">1</div>
           </div>
+          </Link>
           <div className="item">
             <ChatBubbleOutlineOutlined className="icon" />
             <div className="counter">2</div>
