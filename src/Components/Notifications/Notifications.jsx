@@ -4,30 +4,24 @@ import Typography from "@mui/material/Typography";
 import List from '@mui/material/List';
 import axios from '../../utils/axios';
 import React, { useEffect, useState } from 'react';
-// import NotificationItem from "../NotificationItem/NotificationItem";
-import { useSelector } from "react-redux";
+import NotificationItem from "../NotificationItem/NotificationItem";
 import { Divider } from "@mui/material";
 
 const Notifications = () => {
 
     const [notifications, setNotifications] = useState([]);
-    const token = useSelector(state => state.token);
     const getNotifications = async () => {
         try {
-            const { data } = await axios.get(`api/notifications`, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`,
-                },
-            })
-
+            const {data}  = await axios.get(`/api/admin/getNotifications`, {})
             setNotifications(data);
         } catch (err) {
             console.log(err);
         }
     }
+const handleUpdate=async()=>{
+    getNotifications()
+}
 
-    
 
     useEffect(() => {
         getNotifications()
@@ -44,9 +38,10 @@ const Notifications = () => {
                 <Box sx={{
                     textAlign: "center"
                 }}>
-                    <Typography variant="h6" component="h1" >
-                        Notifications
+                    <Typography variant="h5" component="h1"sx={{marginTop:"1.5rem"}} >
+                       Reported post requests
                     </Typography>
+                    <Divider/>
                 </Box>
                 <Box>
                     <Box >
@@ -57,14 +52,17 @@ const Notifications = () => {
                                 display: "none"
                             }
                         }}>
-                            {notifications.map((item,i) => {
+                            {notifications.length >=1 ?
+                            notifications.map((item, i) => {
                                 return (
                                     <>
-                                        {/* <NotificationItem key={i} notification={item} /> */}
-                                        <Divider/>
+                                        <NotificationItem key={i} notification={item} handleUpdate={handleUpdate} />
+                                        <Divider />
                                     </>
                                 );
-                            })}
+                            })
+                            :<Typography varient='h5' component="h1" sx={{marginTop:"13rem"}} >No pending requests</Typography>
+                        }
                         </Box>
                     </Box>
                 </Box>

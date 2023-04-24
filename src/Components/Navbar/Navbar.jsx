@@ -11,9 +11,26 @@ import { Avatar, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { setLogout } from "../../state";
 import {Link} from "react-router-dom"
+import { useState } from "react";
+import axios from '../../utils/axios'
+import { getrequestCount } from "../../utils/Constants";
+import { useEffect } from "react";
 
 function Navbar() {
   const dispatch = useDispatch();
+  const [request,SetRequest]=useState(0)
+
+  const requestCount=async()=>{
+    const {data}=await axios.get(getrequestCount)
+    console.log(data,"the count is here");
+    SetRequest(data)
+  }
+
+  useEffect(()=>{
+    requestCount()
+  },[])
+
+
 
   return (
     <div className="navbar">
@@ -24,17 +41,17 @@ function Navbar() {
         </div> */}
         <div className="items">
           <div className="item">
-            <DarkModeOutlined className="icon" />
+            {/* <DarkModeOutlined className="icon" /> */}
           </div>
           <Link to = "/notifications">
           <div className="item">
             <NotificationsNoneOutlined className="icon" />
-            <div className="counter">1</div>
+            <div className="counter">{request}</div>
           </div>
           </Link>
           <div className="item">
-            <ChatBubbleOutlineOutlined className="icon" />
-            <div className="counter">2</div>
+            {/* <ChatBubbleOutlineOutlined className="icon" /> */}
+            {/* <div className="counter">2</div> */}
           </div>
           <div className="item">
             <ListOutlined className="icon" />

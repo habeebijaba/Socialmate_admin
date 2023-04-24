@@ -7,7 +7,7 @@ import Users from './Pages/Users';
 import Posts from './Pages/Posts';
 import { useSelector } from 'react-redux';
 import Login from './Components/Login/Login';
-// import Notification from './Pages/Notification';
+import Notification from './Pages/Notification';
 
 function App() {
   const isAdmin = Boolean(useSelector((state)=>state.token))
@@ -22,7 +22,7 @@ function App() {
           <Route path='/login' element={isAdmin ? <Navigate to="/" /> : <Login/>}/>
           <Route path='/usermanage' element={isAdmin ? <Users /> : <Navigate to="/login" />}/>
           <Route path='/postmanage'element={isAdmin ? <Posts /> : <Navigate to="/login" />}/>
-          {/* <Route path='/notifications'element={isAdmin ? <Notification /> : <Navigate to="/login" />}/> */}
+          <Route path='/notifications'element={isAdmin ? <Notification /> : <Navigate to="/login" />}/>
 
         </Routes>
       </Router>
